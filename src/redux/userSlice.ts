@@ -9,6 +9,7 @@ export const loginUser  = createAsyncThunk('user/login', async(access_token: str
         console.log(response)
         if (response.status === 200) {
             localStorage.setItem('token', response.data.token)
+            console.log(response.data.user)
             return {...response.data, loggedIn:true, user: response.data.user}
         } else {
             return thunkAPI.rejectWithValue(response.data)
@@ -20,18 +21,31 @@ export const loginUser  = createAsyncThunk('user/login', async(access_token: str
 })
 
 
+interface User {
+  _id: string;
+  posts: any[];
+  friends: any[];
+  friend_send: any[];
+  friend_requests: any[];
+  first_name: string;
+  last_name: string;
+  email: string;
+  profile_img_url: string;
+  facebook_id: string;
+}
+
 interface UserState {
-    loggedIn:boolean,
-    user: object,
-    isFetching: boolean,
-    isSuccess:boolean,
-    isError:boolean
+    loggedIn:boolean;
+    user?: User;
+    isFetching: boolean;
+    isSuccess:boolean;
+    isError:boolean;
   }
 
 
   const initialState: UserState = {
     loggedIn: false,
-    user: {},
+    user: undefined,
     isFetching: false,
     isSuccess:false,
     isError:false,

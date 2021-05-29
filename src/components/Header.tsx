@@ -4,7 +4,9 @@ import { useAppSelector } from '../redux/hooks';
 interface Props {}
 
 const Header = (props: Props) => {
-  const { loggedIn, user } = useAppSelector((state) => state.user);
+  const loggedIn = useAppSelector((state) => state.user.loggedIn);
+
+  const user = useAppSelector((state) => state.user.user);
 
   return (
     <header className="flex flex-row justify-between items-center px-7 py-3 bg-gray-800">
@@ -22,10 +24,10 @@ const Header = (props: Props) => {
           <>
             <img
               className="inline object-cover w-12 h-12 mr-2 rounded-full"
-              src={user.profile_img_url}
+              src={user?.profile_img_url}
               alt="avatar"
             />
-            <h2 className="font-bold text-xl ">{`${user.first_name} ${user.last_name}`}</h2>
+            <h2 className="font-bold text-xl ">{`${user?.first_name} ${user?.last_name}`}</h2>
           </>
         )}
       </div>
