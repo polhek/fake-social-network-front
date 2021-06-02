@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import FacebookLogin from 'react-facebook-login';
 import { Redirect } from 'react-router';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { loginUser, logOut } from '../redux/userSlice';
-import { useHistory } from 'react-router-dom';
+
 interface Props {
   history: any;
 }
@@ -13,7 +13,6 @@ const fb_ID: string = process.env.REACT_APP_FB_ID as string;
 const Login = (props: Props) => {
   const dispatch = useAppDispatch();
   const loggedIn = useAppSelector((state) => state.user.loggedIn);
-  const history = useHistory();
 
   const responseFacebook = async (response: any) => {
     const access_token: string = response.accessToken;

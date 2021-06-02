@@ -21,7 +21,7 @@ export const loginUser  = createAsyncThunk('user/login', async(access_token: str
 })
 
 
-interface User {
+export interface User {
   _id: string;
   posts: any[];
   friends: any[];
@@ -71,7 +71,7 @@ interface UserState {
             return state;
           })
         builder.addCase(loginUser.rejected, (state, { payload }) => {
-            console.log('payload', payload);
+
             state.isFetching = false;
             state.isError = true;
           })
