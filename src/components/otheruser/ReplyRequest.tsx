@@ -2,7 +2,7 @@ import React from 'react';
 import { CheckCircleIcon, TrashIcon } from '@heroicons/react/solid';
 import axios from 'axios';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getAllUsers } from '../../redux/allUsersSlice';
+import { updateUser } from '../../redux/userSlice';
 
 interface Props {
   secondUser_id?: string;
@@ -22,7 +22,7 @@ const ReplyRequest = ({ secondUser_id }: Props) => {
           { headers: { Authorization: token } }
         );
         console.log('cancel', response);
-        dispatch(getAllUsers(token));
+        dispatch(updateUser(token));
       }
     } catch (err) {
       console.log(err.response);
@@ -40,7 +40,7 @@ const ReplyRequest = ({ secondUser_id }: Props) => {
           { headers: { Authorization: token } }
         );
 
-        dispatch(getAllUsers(token));
+        dispatch(updateUser(token));
         console.log('cancel', response);
       }
     } catch (err) {

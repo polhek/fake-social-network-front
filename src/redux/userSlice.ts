@@ -21,6 +21,23 @@ export const loginUser  = createAsyncThunk('user/login', async(access_token: str
 })
 
 
+export const updateUser = createAsyncThunk('user/update', async(token: string, thunkAPI)=>{
+  try {
+      const response = await axios.get("https://warm-falls-67590.herokuapp.com/api/user/updateUser",{
+        headers: { Authorization: token },
+      })
+      console.log(response)
+      if (response.status === 200) {
+          return {...response.data, user: response.data.user}
+      } else {
+          return thunkAPI.rejectWithValue(response.data)
+      }
+  } catch (err) {
+      console.log('Error', err.response.data);
+      return thunkAPI.rejectWithValue(err.response.data);
+  }
+})
+
 export interface User {
   _id: string;
   posts: any[];
@@ -71,12 +88,14 @@ interface UserState {
             return state;
           })
         builder.addCase(loginUser.rejected, (state, { payload }) => {
-
             state.isFetching = false;
             state.isError = true;
           })
         builder.addCase(loginUser.pending,(state) => {
             state.isFetching = true;
+          })
+          builder.addCase(updateUser.fulfilled, (state,{payload})=>{
+            state.user = payload.user
           })
     }
   })

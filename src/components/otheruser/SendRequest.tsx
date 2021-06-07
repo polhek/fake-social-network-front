@@ -1,8 +1,8 @@
 import React from 'react';
 import { MailIcon } from '@heroicons/react/solid';
 import axios from 'axios';
-import { getAllUsers } from '../../redux/allUsersSlice';
 import { useAppDispatch } from '../../redux/hooks';
+import { updateUser } from '../../redux/userSlice';
 
 interface Props {
   secondUser_id?: string;
@@ -23,7 +23,7 @@ const SendRequest = ({ secondUser_id, loggedUser_id }: Props) => {
             headers: { Authorization: token },
           }
         );
-        dispatch(getAllUsers(token));
+        dispatch(updateUser(token));
         console.log(response);
       }
     } catch (err) {

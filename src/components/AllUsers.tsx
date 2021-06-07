@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import OtherUser from './OtherUser';
 import { getAllUsers } from '../redux/allUsersSlice';
-
+import { getAllPosts } from '../redux/postsSlice';
 interface Props {}
 
 const AllUsers = (props: Props) => {
   // const [users, setUsers] = useState<any[]>([]);
   const dispatch = useAppDispatch();
+  const loggedUser = useAppSelector((state) => state.user.user);
   const loggedIn = useAppSelector((state) => state.user.loggedIn);
   const allUsers = useAppSelector((state) => state.allUsers.allUsers);
   const token = localStorage.getItem('token');
@@ -15,24 +16,10 @@ const AllUsers = (props: Props) => {
   useEffect(() => {
     if (loggedIn && token) {
       dispatch(getAllUsers(token));
+      dispatch(getAllPosts(token));
     }
-    // getAllUsers();
-  }, []);
+  }, [loggedUser]);
 
-  // const getAllUsers = async () => {
-  //   try {
-  //     const token = localStorage.getItem('token');
-  //     if (token) {
-  //       const response = await axios.get('/api/user/allUsers', {
-  //         headers: { Authorization: token },
-  //       });
-  //       const allUsers = response.data.allUsers;
-  //       setUsers(allUsers);
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
   return (
     <div className="bg-gray-800 bg-opacity-90 m-2 rounded h-2/5 p-2 text-white shadow overflow-auto">
       <h3 className="font-bold mb-1 text-lg ">All users:</h3>

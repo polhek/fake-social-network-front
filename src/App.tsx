@@ -20,7 +20,7 @@ function App() {
 
   return (
     <Router>
-      <div className=" h-full text-white bg-gradient-to-br from-gray-600 via-teal-700 to-gray-800">
+      <div className=" h-full text-white bg-gray-700">
         <Header />
         <Switch>
           <Route exact path="/" component={Login}></Route>

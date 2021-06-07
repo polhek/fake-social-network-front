@@ -2,7 +2,7 @@ import React from 'react';
 import { TrashIcon } from '@heroicons/react/solid';
 import axios from 'axios';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getAllUsers } from '../../redux/allUsersSlice';
+import { updateUser } from '../../redux/userSlice';
 
 interface Props {
   secondUser_id?: string;
@@ -21,7 +21,7 @@ const RemoveFriend = ({ secondUser_id }: Props) => {
           `/api/user/${secondUser_id}/remove-friend`,
           { headers: { Authorization: token } }
         );
-        dispatch(getAllUsers(token));
+        dispatch(updateUser(token));
         console.log('remove', response);
       }
     } catch (err) {
