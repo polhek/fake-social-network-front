@@ -49,6 +49,7 @@ const NewPost = (props: Props) => {
           <input
             placeholder={`What are you thinking about, ${user?.first_name}`}
             className="w-full bg-gray-500 rounded-2xl p-1"
+            value={text}
             onChange={(event) => {
               changeHandler(event);
             }}

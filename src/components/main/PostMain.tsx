@@ -6,7 +6,7 @@ interface Props {}
 
 const PostMain = (props: Props) => {
   return (
-    <div>
+    <div className="overflow-scroll h-full">
       <NewPost />
       <PostList />
     </div>
