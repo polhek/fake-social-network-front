@@ -6,7 +6,6 @@ interface Props {
 }
 
 const Comment = ({ comments, showHide }: Props) => {
-  console.log(comments.length);
   return (
     <>
       <button onClick={showHide}>

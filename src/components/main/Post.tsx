@@ -21,7 +21,7 @@ const Post = ({ post }: Props) => {
   const [showComments, setShowComments] = useState<boolean>(false);
   const img = post.user.profile_img_url;
   const user = useAppSelector((state) => state.user.user);
-  console.log(post);
+
   const timeFromPostTime = () => {
     const start = DateTime.now();
     const createdAtPost = DateTime.fromISO(post.createdAt);
