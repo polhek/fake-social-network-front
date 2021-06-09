@@ -3,6 +3,8 @@ import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { MailIcon } from '@heroicons/react/solid';
 import axios from 'axios';
 import { updateUser } from '../../redux/userSlice';
+import TextareaAutosize from 'react-textarea-autosize';
+
 interface Props {}
 
 const NewPost = (props: Props) => {
@@ -10,7 +12,7 @@ const NewPost = (props: Props) => {
   const token = localStorage.getItem('token');
   const dispatch = useAppDispatch();
 
-  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
 
@@ -46,13 +48,13 @@ const NewPost = (props: Props) => {
             alt="avatar"
           />
 
-          <input
+          <TextareaAutosize
             placeholder={`What are you thinking about, ${user?.first_name}`}
             className="w-full bg-gray-500 rounded-2xl p-1"
-            value={text}
             onChange={(event) => {
               changeHandler(event);
             }}
+            value={text}
             required
           />
         </div>

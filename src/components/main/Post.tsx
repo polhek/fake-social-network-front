@@ -12,6 +12,7 @@ import LikePost from './LikePost';
 import CommentPost from './CommentPost';
 import DeletePost from './DeletePost';
 import Comments from './Comments';
+import timeFromPostTime from '../../helper';
 
 interface Props {
   post: any;
@@ -21,47 +22,6 @@ const Post = ({ post }: Props) => {
   const [showComments, setShowComments] = useState<boolean>(false);
   const img = post.user.profile_img_url;
   const user = useAppSelector((state) => state.user.user);
-
-  const timeFromPostTime = () => {
-    const start = DateTime.now();
-    const createdAtPost = DateTime.fromISO(post.createdAt);
-
-    const differenceBetween = start.diff(createdAtPost, 'minutes');
-    let obj = differenceBetween?.toObject();
-
-    if (obj) {
-      let minutes = obj.minutes;
-      if (minutes === undefined) {
-        return null;
-      }
-      if (minutes < 3) {
-        return `Now... `;
-      }
-      if (minutes < 60) {
-        return `${Math.round(minutes)}m `;
-      }
-      if (minutes > 60) {
-        const hours = differenceBetween.shiftTo('hours').toObject();
-        let time = hours.hours ?? undefined;
-
-        if (time) {
-          let round = Math.round(time);
-          if (round <= 24) {
-            return `${round}h`;
-          } else {
-            const days = differenceBetween.shiftTo('days', 'hours').toObject();
-            let time = days.days ?? undefined;
-            let hours = days.hours ?? undefined;
-
-            if (time && hours) {
-              return `${time}d${Math.round(hours)}h`;
-            }
-          }
-        }
-      }
-    }
-    return null;
-  };
 
   const showHide = () => {
     setShowComments(!showComments);
@@ -79,7 +39,8 @@ const Post = ({ post }: Props) => {
           <div>
             <p className="font-bold text-base">{post.user.first_name}</p>
             <p className="text-sm text-gray-100 flex items-center">
-              {timeFromPostTime()} <ClockIcon className="h-4 w-4" />
+              {timeFromPostTime(post.createdAt)}
+              <ClockIcon className="h-4 w-4" />
             </p>
           </div>
         </div>
@@ -97,7 +58,9 @@ const Post = ({ post }: Props) => {
       <div className="flex justify-evenly p-2  text-gray-400 border-t-2 border-red-gray-200">
         <LikePost postId={post._id} />
         <CommentPost showHide={showHide} />
-        {user && user._id === post.user._id ? <DeletePost /> : null}
+        {user && user._id === post.user._id ? (
+          <DeletePost postId={post._id} />
+        ) : null}
       </div>
       {showComments && (
         <Comments postId={post._id} allComments={post?.comments} />

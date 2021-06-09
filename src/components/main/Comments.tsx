@@ -9,11 +9,13 @@ interface Props {
 
 const Comments = ({ allComments, postId }: Props) => {
   return (
-    <div className="border-t-2 border-red-gray-200 mt-2 p-3">
+    <div className="flex flex-col border-t-2 border-red-gray-200 mt-2 p-3">
       <NewComment postId={postId} />
       {allComments &&
         allComments.map((comment) => {
-          return <CommentItem key={comment._id} comment={comment} />;
+          return (
+            <CommentItem key={comment._id} comment={comment} postId={postId} />
+          );
         })}
     </div>
   );

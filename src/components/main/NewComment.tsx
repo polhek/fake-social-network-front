@@ -3,6 +3,7 @@ import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import TextareaAutosize from 'react-textarea-autosize';
 import axios from 'axios';
 import { updateUser } from '../../redux/userSlice';
+
 interface Props {
   postId: string;
 }
