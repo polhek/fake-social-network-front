@@ -6,6 +6,10 @@ import Odinbook from './components/Odinbook';
 import { useAppSelector, useAppDispatch } from './redux/hooks';
 import ProtectedRoute from './hoc/protectedRoute';
 import { loginUser } from './redux/userSlice';
+import Modal from 'react-modal';
+import Profile from './components/profile/Profile';
+
+Modal.setAppElement('#root');
 
 function App() {
   const loggedIn = useAppSelector((state) => state.user.loggedIn);
@@ -28,6 +32,11 @@ function App() {
             exact
             component={Odinbook}
             path="/odinbook"
+            loggedIn={loggedIn}
+          />
+          <ProtectedRoute
+            component={Profile}
+            path="/profile"
             loggedIn={loggedIn}
           />
         </Switch>

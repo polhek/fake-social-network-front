@@ -22,6 +22,7 @@ const CommentItem = ({ comment, postId }: Props) => {
   const user = useAppSelector((state) => state.user.user);
   const token = localStorage.getItem('token');
   const dispatch = useAppDispatch();
+
   const deleteComment = async () => {
     try {
       if (token) {

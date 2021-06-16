@@ -3,7 +3,7 @@ import { useAppSelector } from '../../redux/hooks';
 import { DateTime } from 'ts-luxon';
 import {
   ClockIcon,
-  DotsHorizontalIcon,
+  DotsVerticalIcon,
   ThumbUpIcon,
 } from '@heroicons/react/solid';
 import Like from './Like';
@@ -13,18 +13,46 @@ import CommentPost from './CommentPost';
 import DeletePost from './DeletePost';
 import Comments from './Comments';
 import timeFromPostTime from '../../helper';
+import Modal from 'react-modal';
+import PostEdit from './PostEdit';
+
+Modal.setAppElement('#root');
 
 interface Props {
   post: any;
 }
 
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    padding: 0,
+    width: '60%',
+    height: '65%',
+    borderRadius: '0.75rem',
+  },
+};
+
 const Post = ({ post }: Props) => {
   const [showComments, setShowComments] = useState<boolean>(false);
+  const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const img = post.user.profile_img_url;
   const user = useAppSelector((state) => state.user.user);
-
+  let subtitle: any;
   const showHide = () => {
     setShowComments(!showComments);
+  };
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -45,7 +73,13 @@ const Post = ({ post }: Props) => {
           </div>
         </div>
         <div>
-          <DotsHorizontalIcon className="h-5 w-5" />
+          <button
+            onClick={openModal}
+            className="flex items-center font-semibold text-gray-400 hover:text-gray-500"
+          >
+            Edit
+            <DotsVerticalIcon className="h-5 w-5" />
+          </button>
         </div>
       </div>
       <div className="mt-2 p-2 text-justify">{post.text}</div>
@@ -65,6 +99,19 @@ const Post = ({ post }: Props) => {
       {showComments && (
         <Comments postId={post._id} allComments={post?.comments} />
       )}
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel={'Example modal'}
+      >
+        <PostEdit
+          postId={post._id}
+          userImg={post?.user.profile_img_url}
+          closeModal={closeModal}
+        />
+      </Modal>
     </div>
   );
 };

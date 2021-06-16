@@ -8,7 +8,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 interface Props {}
 
 const NewPost = (props: Props) => {
-  const [text, setText] = useState<string>('initialState');
+  const [text, setText] = useState<string>('');
   const token = localStorage.getItem('token');
   const dispatch = useAppDispatch();
 
