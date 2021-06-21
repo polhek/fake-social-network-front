@@ -10,16 +10,25 @@ interface Props {}
 const NewPost = (props: Props) => {
   const [text, setText] = useState<string>('');
   const token = localStorage.getItem('token');
+  const [image, setImage] = useState<any>('');
   const dispatch = useAppDispatch();
 
   const changeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
 
+  const postImageHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return;
+    console.log(event.target.files);
+    setImage(event.target.files[0]);
+    console.log(image);
+  };
+
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      if (token && text.length > 0) {
+      if (token && text.length > 0 && !image) {
+        console.log('samo text');
         await axios.post(
           'api/posts/newPost',
           { text: text },
@@ -27,6 +36,23 @@ const NewPost = (props: Props) => {
         );
         dispatch(updateUser(token));
         setText('');
+      }
+      if (token && image && text.length > 0) {
+        console.log('file');
+        const data = new FormData();
+
+        data.append('text', text);
+        data.append('file', image);
+        const upload = await axios.post('api/posts/newPost', data, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: token,
+          },
+        });
+        console.log(upload);
+        setText('');
+        setImage('');
+        dispatch(updateUser(token));
       }
     } catch (err) {
       console.log(err);
@@ -58,7 +84,7 @@ const NewPost = (props: Props) => {
             required
           />
         </div>
-        <div className="pt-3 flex flex-start items-center">
+        <div className="pt-3 flex justify-between items-center">
           <button
             type="submit"
             className="bg-green-700 p-2 flex rounded items-center justify-items-center"
@@ -66,6 +92,15 @@ const NewPost = (props: Props) => {
             <MailIcon className="h-5 w-5 mr-2" />
             <span>Send Post</span>
           </button>
+          <div>
+            <input
+              type="file"
+              name="file"
+              onChange={(event) => {
+                postImageHandler(event);
+              }}
+            />
+          </div>
         </div>
       </form>
     </div>

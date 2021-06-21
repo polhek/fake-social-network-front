@@ -8,7 +8,7 @@ export const getAllUsers  = createAsyncThunk('all/users', async(token: string, t
         const response = await axios.get("https://warm-falls-67590.herokuapp.com/api/user/allUsers",{
             headers: { Authorization: token },
           })
-        console.log(response)
+
         if (response.status === 200) {
             const allUsers = response.data.allUsers;
             return {...response.data,  allUsers: allUsers}

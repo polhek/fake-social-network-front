@@ -6,10 +6,9 @@ import axios from 'axios'
 export const loginUser  = createAsyncThunk('user/login', async(access_token: string, thunkAPI)=>{
     try {
         const response = await axios.post("https://warm-falls-67590.herokuapp.com/api/user/oauth/facebook",{access_token})
-        console.log(response)
+
         if (response.status === 200) {
             localStorage.setItem('token', response.data.token)
-            console.log(response.data.user)
             return {...response.data, loggedIn:true, user: response.data.user}
         } else {
             return thunkAPI.rejectWithValue(response.data)
@@ -26,7 +25,7 @@ export const updateUser = createAsyncThunk('user/update', async(token: string, t
       const response = await axios.get("https://warm-falls-67590.herokuapp.com/api/user/updateUser",{
         headers: { Authorization: token },
       })
-      console.log(response)
+
       if (response.status === 200) {
           return {...response.data, user: response.data.user}
       } else {

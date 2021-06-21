@@ -8,7 +8,7 @@ export const getAllPosts  = createAsyncThunk('all/posts', async(token: string, t
         const response = await axios.get("https://warm-falls-67590.herokuapp.com/api/posts/all",{
             headers: { Authorization: token },
           })
-        console.log(response)
+
         if (response.status === 200) {
             const posts = response.data.posts;
             return {...response.data,  posts: posts}

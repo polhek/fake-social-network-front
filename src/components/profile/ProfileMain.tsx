@@ -12,7 +12,7 @@ const ProfileMain = (props: Props) => {
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
-
+    console.log(event.target.files);
     setProfileImage(event.target.files[0]);
   };
 
