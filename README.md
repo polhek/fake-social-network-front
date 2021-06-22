@@ -1,27 +1,34 @@
-# cra-template-tailwindcss-typescript
+# The Odinbook - fake social network
 
-A streamlined [Tailwind CSS](https://tailwindcss.com) template for [Create React App](https://github.com/facebook/create-react-app) in [TypeScript](https://www.typescriptlang.org/).
+Frontend for my "fake" social network app called **The Odinbook**. It is basically a rough copy
+of facebook made for learning purposes of building REST API with NodeJS, with Facebook Authentication and JWT tokens for securing the REST API routes. I also made it using Typescript for the sake of learning a new language.
 
-> This template installs and sets up [Tailwind CSS](https://tailwindcss.com) with TypeScript support.
+## Technology used
 
-## Usage
+### Frontend
 
-```bash
-npx create-react-app --template tailwindcss-typescript
-```
+1. ReactJS with Typescript
 
-## Credits
+2. TailwindCSS
 
-This project was made possible thanks to the following projects.
+3. Redux Toolkit
 
-1. [GeoffSelby/cra-template-tailwindcss](https://github.com/GeoffSelby/cra-template-tailwindcss) - A streamlined Tailwind CSS template for Create React App (in JavaScript).
-2. [cra-template-typescript](https://github.com/facebook/create-react-app/tree/master/packages/cra-template-typescript) - An official TypeScript template for create-react-app.
+4. Axios,
 
-## License
+5. and many more...
 
-MIT © [Sung M. Kim](https://sung.codes)
-# fake-social-network-front
-# fake-social-network-front
-# fake-social-network-front
-# fake-social-network-front
-# fake-social-network-front
+### Backend
+
+1. NodeJS with ExpressJS framework
+
+2. MongoDB (Mongoose)
+
+3. PassportJS
+
+4. oAuth
+
+5. and many more...
+
+## RestAPI - repository
+
+- [REST API - NodeJS link](https://github.com/polhek/fake-social-network-api)

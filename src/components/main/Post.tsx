@@ -68,13 +68,15 @@ const Post = ({ post }: Props) => {
           </div>
         </div>
         <div>
-          <button
-            onClick={openModal}
-            className="flex items-center font-semibold text-gray-400 hover:text-gray-500"
-          >
-            Edit
-            <DotsVerticalIcon className="h-5 w-5" />
-          </button>
+          {user?._id === post?.user._id ? (
+            <button
+              onClick={openModal}
+              className="flex items-center font-semibold text-gray-400 hover:text-gray-500"
+            >
+              Edit
+              <DotsVerticalIcon className="h-5 w-5" />
+            </button>
+          ) : null}
         </div>
       </div>
       <div className="mt-2 p-2 text-justify">{post.text}</div>
