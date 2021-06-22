@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import { useAppSelector } from '../../redux/hooks';
-import { DateTime } from 'ts-luxon';
-import {
-  ClockIcon,
-  DotsVerticalIcon,
-  ThumbUpIcon,
-} from '@heroicons/react/solid';
+import { ClockIcon, DotsVerticalIcon } from '@heroicons/react/solid';
 import Like from './Like';
 import Comment from './Comment';
 import LikePost from './LikePost';
@@ -42,7 +37,7 @@ const Post = ({ post }: Props) => {
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const img = post.user.profile_img_url;
   const user = useAppSelector((state) => state.user.user);
-  let subtitle: any;
+
   const showHide = () => {
     setShowComments(!showComments);
   };
@@ -83,6 +78,15 @@ const Post = ({ post }: Props) => {
         </div>
       </div>
       <div className="mt-2 p-2 text-justify">{post.text}</div>
+      {post.image_url && (
+        <div className="flex justify-center">
+          <img
+            className="rounded-lg border-black border-2 h-96 w-96"
+            src={post.image_url}
+            alt="post"
+          ></img>
+        </div>
+      )}
       <div className="flex justify-between items-center ">
         <div className="mt-2 p-2 flex items-center ">
           <Like likes={post.likes} />

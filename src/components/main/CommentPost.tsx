@@ -1,5 +1,6 @@
 import React from 'react';
 import { ChatAlt2Icon } from '@heroicons/react/solid';
+
 interface Props {
   showHide: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Header from './components/Header';
 import Login from './components/Login';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import Odinbook from './components/Odinbook';
 import { useAppSelector, useAppDispatch } from './redux/hooks';
 import ProtectedRoute from './hoc/protectedRoute';

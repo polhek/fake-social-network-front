@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { MailIcon } from '@heroicons/react/solid';
 import axios from 'axios';
@@ -10,7 +10,8 @@ interface Props {}
 const NewPost = (props: Props) => {
   const [text, setText] = useState<string>('');
   const token = localStorage.getItem('token');
-  const [image, setImage] = useState<any>('');
+  const [image, setImage] = useState<any>(null);
+  const ref = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
 
   const changeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -19,9 +20,7 @@ const NewPost = (props: Props) => {
 
   const postImageHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
-    console.log(event.target.files);
     setImage(event.target.files[0]);
-    console.log(image);
   };
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -43,15 +42,19 @@ const NewPost = (props: Props) => {
 
         data.append('text', text);
         data.append('file', image);
-        const upload = await axios.post('api/posts/newPost', data, {
+        await axios.post('api/posts/newPost', data, {
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: token,
           },
         });
-        console.log(upload);
+
         setText('');
-        setImage('');
+        setImage(null);
+        if (ref.current) {
+          ref.current.value = '';
+        }
+
         dispatch(updateUser(token));
       }
     } catch (err) {
@@ -96,9 +99,11 @@ const NewPost = (props: Props) => {
             <input
               type="file"
               name="file"
+              id="file"
               onChange={(event) => {
                 postImageHandler(event);
               }}
+              ref={ref}
             />
           </div>
         </div>

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { useAppSelector } from '../../redux/hooks';
-import { PencilIcon } from '@heroicons/react/solid';
+import React, { useState, useRef } from 'react';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import axios from 'axios';
+
+import { updateUser } from '../../redux/userSlice';
 
 interface Props {}
 
@@ -9,6 +10,8 @@ const ProfileMain = (props: Props) => {
   const user = useAppSelector((state) => state.user.user);
   const [profileImage, setProfileImage] = useState<any>('');
   const token = localStorage.getItem('token');
+  const ref = useRef<HTMLInputElement | null>(null);
+  const dispatch = useAppDispatch();
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
@@ -22,13 +25,16 @@ const ProfileMain = (props: Props) => {
       const data = new FormData();
       data.append('file', profileImage);
       console.log(data);
-      const upload = await axios.post('api/user/updateProfilePicture', data, {
+      await axios.post('api/user/updateProfilePicture', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: token,
         },
       });
-      console.log(upload);
+      if (ref.current) {
+        ref.current.value = '';
+      }
+      dispatch(updateUser(token));
     }
   };
   return (
@@ -56,6 +62,7 @@ const ProfileMain = (props: Props) => {
                 onChange={(event) => {
                   onChangeHandler(event);
                 }}
+                ref={ref}
               />
             </div>
 

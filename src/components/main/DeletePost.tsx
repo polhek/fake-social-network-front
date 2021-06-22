@@ -3,6 +3,7 @@ import { TrashIcon } from '@heroicons/react/solid';
 import axios from 'axios';
 import { useAppDispatch } from '../../redux/hooks';
 import { updateUser } from '../../redux/userSlice';
+
 interface Props {
   postId: string;
 }

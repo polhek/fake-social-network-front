@@ -1,5 +1,6 @@
 import React from 'react';
 import { ThumbUpIcon } from '@heroicons/react/solid';
+
 interface Props {
   likes: any[];
 }

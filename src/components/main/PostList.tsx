@@ -1,6 +1,5 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import axios from 'axios';
+import { useAppSelector } from '../../redux/hooks';
 import Post from './Post';
 import Loader from 'react-loader-spinner';
 
