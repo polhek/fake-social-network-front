@@ -19,6 +19,7 @@
     "axios": "^0.21.1",
     "cross-env": "7.x",
     "dotenv": "^10.0.0",
+    "gh-pages": "^3.2.3",
     "luxon": "^1.27.0",
     "npm-run-all": "4.x",
     "postcss": "8.x",
@@ -45,7 +46,9 @@
     "build:css": "cross-env TAILWIND_MODE=build NODE_ENV=production postcss src/styles/tailwind.css -o src/styles/index.css",
     "watch:css": "cross-env TAILWIND_MODE=watch NODE_ENV=development postcss src/styles/tailwind.css -o src/styles/index.css --watch",
     "react-scripts:start": "sleep 5 && react-scripts start",
-    "react-scripts:build": "react-scripts build"
+    "react-scripts:build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -64,5 +67,6 @@
   },
   "devDependencies": {
     "@types/react-facebook-login": "^4.1.3"
-  }
+  },
+  "homepage": "http://polhek.github.io/fake-social-network-front"
 }
