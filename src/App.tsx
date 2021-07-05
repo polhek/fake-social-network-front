@@ -8,6 +8,7 @@ import ProtectedRoute from './hoc/protectedRoute';
 import { loginUser } from './redux/userSlice';
 import Modal from 'react-modal';
 import Profile from './components/profile/Profile';
+// testing socket.io
 
 Modal.setAppElement('#root');
 

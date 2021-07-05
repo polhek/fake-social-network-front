@@ -48,6 +48,7 @@ export interface User {
   email: string;
   profile_img_url: string;
   facebook_id: string;
+  notifications: any[];
 }
 
 interface UserState {
