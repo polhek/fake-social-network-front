@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAppSelector } from '../redux/hooks';
 import { LogoutIcon } from '@heroicons/react/solid';
 import { useAppDispatch } from '../redux/hooks';
 import { logOut } from '../redux/userSlice';
 import { Link } from 'react-router-dom';
 import { BellIcon } from '@heroicons/react/solid';
+import Notification from './notifications/Notification';
 interface Props {}
 
 const Header = (props: Props) => {
   const dispatch = useAppDispatch();
   const loggedIn = useAppSelector((state) => state.user.loggedIn);
   const user = useAppSelector((state) => state.user.user);
+  const [show, setShow] = useState(false);
 
   const logOutFunction = () => {
     dispatch(logOut());
@@ -22,6 +24,10 @@ const Header = (props: Props) => {
       (item) => item.unread !== false
     );
     if (unreadNotifications) return unreadNotifications.length;
+  };
+
+  const clickHandler = () => {
+    setShow(!show);
   };
 
   return (
@@ -40,10 +46,16 @@ const Header = (props: Props) => {
         )}
         {loggedIn && (
           <>
-            <div className="flex items-center">
-              <BellIcon className="h-7 w-7 text-red-700" />
-              {onlyUnreadCount()}
+            <div className="relative">
+              <div>
+                <button onClick={clickHandler} className="flex items-center">
+                  <BellIcon className="h-7 w-7 text-red-700" />
+                  {onlyUnreadCount()}
+                </button>
+              </div>
+              {show && <Notification />}
             </div>
+
             <Link to="/profile">
               <span className="font-semibold text-xl px-4 py-2 hov border-2 hover:bg-red-500 transform hover:scale-105 border-red-500 ">
                 Profile

@@ -3,6 +3,7 @@ import { ThumbUpIcon } from '@heroicons/react/solid';
 import axios from 'axios';
 import { useAppDispatch } from '../../redux/hooks';
 import { getAllPosts } from '../../redux/postsSlice';
+import { updateUser } from '../../redux/userSlice';
 
 interface Props {
   postId: string;
@@ -17,7 +18,7 @@ const LikePost = ({ postId }: Props) => {
         await axios.put(`/api/posts/${postId}/like`, null, {
           headers: { Authorization: token },
         });
-        dispatch(getAllPosts(token));
+        dispatch(updateUser(token));
       }
     } catch (err) {
       console.log(err);
