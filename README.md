@@ -32,3 +32,10 @@ of facebook made for learning purposes of building REST API with NodeJS, with Fa
 ## RestAPI - repository
 
 - [REST API - NodeJS link](https://github.com/polhek/fake-social-network-api)
+
+## To make app work:
+
+You need to provide in your .env file:
+
+- REACT_APP_FB_ID
+- and in index.tsx file, you need to add your default url of backend (API server).

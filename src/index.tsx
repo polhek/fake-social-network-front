@@ -7,6 +7,7 @@ import { store } from './redux/store';
 import { Provider } from 'react-redux';
 import axios from 'axios';
 
+//! add here your url of back end, from my backend REST API of backend project
 axios.defaults.baseURL = 'https://warm-falls-67590.herokuapp.com/';
 
 ReactDOM.render(
