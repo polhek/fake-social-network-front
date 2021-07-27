@@ -8,6 +8,7 @@ import ProtectedRoute from './hoc/protectedRoute';
 import { loginUser } from './redux/userSlice';
 import Modal from 'react-modal';
 import Profile from './components/profile/Profile';
+import Register from './components/Register';
 // testing socket.io
 
 Modal.setAppElement('#root');
@@ -29,6 +30,7 @@ function App() {
         <Header />
         <Switch>
           <Route exact path="/" component={Login}></Route>
+          <Route exact path="/register" component={Register}></Route>
           <ProtectedRoute
             exact
             component={Odinbook}

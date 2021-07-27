@@ -3,6 +3,23 @@ import type { RootState } from './store'
 import axios from 'axios'
 
 
+
+export const loginUserLocal = createAsyncThunk('user/loginLocal', async(formData:formData, thunkAPI)=>{
+  try {
+      const response = await axios.post("https://warm-falls-67590.herokuapp.com/api/user/login",{email: formData.email,password: formData.password})
+
+      if (response.status === 200) {
+          localStorage.setItem('token', response.data.token)
+          return {...response.data, loggedIn:true, user: response.data.user}
+      } else {
+          return thunkAPI.rejectWithValue(response.data)
+      }
+  } catch (err) {
+      console.log('Error', err.response.data);
+      return thunkAPI.rejectWithValue(err.response.data);
+  }
+})
+
 export const loginUser  = createAsyncThunk('user/login', async(access_token: string, thunkAPI)=>{
     try {
         const response = await axios.post("https://warm-falls-67590.herokuapp.com/api/user/oauth/facebook",{access_token})
@@ -36,6 +53,10 @@ export const updateUser = createAsyncThunk('user/update', async(token: string, t
       return thunkAPI.rejectWithValue(err.response.data);
   }
 })
+
+export interface formData {
+  email:string; password:string
+}
 
 export interface User {
   _id: string;
@@ -96,6 +117,20 @@ interface UserState {
           })
           builder.addCase(updateUser.fulfilled, (state,{payload})=>{
             state.user = payload.user
+          })
+          builder.addCase(loginUserLocal.fulfilled, (state, { payload }) => {
+            state.user = payload.user;
+            state.loggedIn = payload.loggedIn;
+            state.isFetching = false;
+            state.isSuccess = true;
+            return state;
+          })
+        builder.addCase(loginUserLocal.rejected, (state, { payload }) => {
+            state.isFetching = false;
+            state.isError = true;
+          })
+        builder.addCase(loginUserLocal.pending,(state) => {
+            state.isFetching = true;
           })
     }
   })
