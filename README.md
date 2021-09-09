@@ -33,6 +33,10 @@ of facebook made for learning purposes of building REST API with NodeJS, with Fa
 
 - [REST API - NodeJS link](https://github.com/polhek/fake-social-network-api)
 
+
+## Live link:
+- [The Odinbook](https://polhek.github.io/fake-social-network-front/#/)
+
 ## To make app work:
 
 You need to provide in your .env file:
